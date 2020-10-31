@@ -12,6 +12,11 @@ from app_pet.models import MyUser
 from .models import Tag, Post
 
 
+#####################################################################################################################################
+
+from app_pet.models import MyUser
+
+
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -20,7 +25,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('name', 'avatar', 'Telegram', 'Vk', 'phone', 'shelter', 'people', 'donate', 'data_start_donat')
+        fields = ('name', 'Telegram', 'mail', 'ownership','phone', 'pasport', 'snils', 'inn', 'organization1','natural_legal' )
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -37,6 +42,7 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
 
 class UserChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
@@ -47,13 +53,14 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('name', 'avatar', 'Telegram', 'Vk', 'phone', 'shelter', 'people', 'donate', 'data_start_donat', 'is_active', 'is_admin')
+        fields = ('name', 'Telegram', 'mail', 'ownership','phone', 'pasport', 'snils', 'inn', 'organization1','natural_legal', 'is_active', 'is_admin')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
 
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
@@ -63,11 +70,11 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('name', 'avatar', 'Telegram', 'Vk', 'phone', 'shelter', 'people', 'donate', 'data_start_donat', 'is_active', 'is_admin') # список параметров в админке
-    list_filter = ('is_admin',)
+    list_display = ('name', 'Telegram', 'mail', 'ownership','phone', 'pasport', 'snils', 'inn', 'organization1','natural_legal', 'is_active' , 'is_admin') # список параметров в админке
+    list_filter = ['is_admin']
     fieldsets = (
         (None, {'fields': ('name', 'password')}),
-        ('Personal info', {'fields': ('avatar', 'Telegram', 'Vk', 'phone', 'shelter', 'people', 'donate', 'data_start_donat',)}),
+        ('Personal info', {'fields': ('Telegram', 'mail', 'ownership','phone', 'pasport', 'snils', 'inn', 'organization1','natural_legal',)}),
         ('Permissions', {'fields': ('is_admin', 'is_active')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -75,12 +82,13 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('name', 'avatar', 'Telegram', 'Vk', 'phone', 'shelter', 'people', 'donate', 'data_start_donat', 'password1', 'password2','is_admin'), #Здесь добавляются поля в админку
+            'fields': ('name', 'Telegram', 'mail', 'ownership','phone', 'pasport', 'snils', 'inn', 'organization1','natural_legal', 'password1', 'password2','is_admin'), #Здесь добавляются поля в админку
         }),
     )
     search_fields = ('name',)
     ordering = ('name',)
     filter_horizontal = ()
+
 
 #####################################################################################################################################
 

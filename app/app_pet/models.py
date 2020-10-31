@@ -16,6 +16,22 @@ from django.shortcuts import reverse
 from django.utils.text import slugify
 from time import time
 
+from django.views import View
+
+class Departament(models.Model):
+    name = models.CharField(max_length=50)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL)
+
+class Prefecture(models.Model):
+    name = models.CharField(max_length=50)
+    departament = models.ForeignKey(Departament, on_delete=models.CASCADE, null=True)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL)
+class Shelter(models.Model):
+    name = models.CharField(max_length=50)
+    prefecture = models.ForeignKey(Prefecture, on_delete=models.CASCADE,null=True)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL)
+
+
 #################################################################################################################################
 #########################################               МОДЕЛЬ ПОЛЬЗОВАТЕЛЯ             #########################################
 #################################################################################################################################
@@ -52,33 +68,30 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
+
 class MyUser(AbstractBaseUser):
-    email = models.EmailField(
-        verbose_name='email address',
-        max_length=255,
-        unique=True,
-    )
+    
     name = models.CharField(unique=True, max_length=100)
     Telegram = models.CharField( max_length=100,blank=True)
-    Vk = models.CharField( max_length=100,blank=True)
+    mail = models.CharField(max_length=100,blank=True)
     phone = models.CharField(max_length=100,blank=True)
-    shelter = models.BooleanField(default=False,blank=True)
-    people = models.BooleanField(default=True,blank=True)
-    avatar = models.ImageField(upload_to="user_photo",blank = True)
-    SIMPLE = 's'
-    MEDIUM = 'm'
-    HARD = 'h'
-    DONATE_CHOICES = [
-        (SIMPLE, 'simple'),
-        (MEDIUM, 'medium'),
-        (HARD, 'hard'),
+
+    pasport = models.CharField(max_length=100,blank=True)
+    snils = models.CharField(max_length=100,blank=True)
+    inn = models.CharField(max_length=100,blank=True)
+    
+    organization1 = models.CharField(blank=True, max_length=100)
+
+    MANAGEER = "M"
+    USER = "U"
+    OWNERSHIP_CHOICES = [
+        (MANAGEER, 'управление'),
+        (USER, 'пользователь'),
     ]
-    donate = models.CharField(
-        max_length=1,
-        choices=DONATE_CHOICES,
-        default=SIMPLE,blank=True
-    )
-    data_start_donat = models.DateField(blank=True, default="1994-04-23")
+    ownership = models.CharField(max_length=100, choices=OWNERSHIP_CHOICES ,blank=True) #пренадлежность пользователя
+    
+    natural_legal = models.CharField(max_length=100, choices=[('n','физическое'),('l','юридическое')]) #физическое или юридическое лицо
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -110,14 +123,15 @@ class MyUser(AbstractBaseUser):
 #############################################                   МОДЕЛЬ ПИТОМЦА              #########################################
 #####################################################################################################################################
 
+class TypeVaccine(models.Model): #Вид вакцины
+    name = models.CharField(max_length=30, unique=True, blank=False)
+
 class PetModel(models.Model):
     DOG = 'd'
     CAT = 'c'
-    OTHER = 'o'
     TYPE_CHOICES = [
-        (DOG, 'dog'),
-        (CAT, 'cat'),
-        (OTHER, 'other'),
+        (DOG, 'кошка'),
+        (CAT, 'собака'),
     ]
     FOUND = 'f'
     LOST = 'l'
@@ -126,19 +140,105 @@ class PetModel(models.Model):
         (LOST, 'lost'),
     ]
     
-    type_pet = models.CharField(default=DOG, choices=TYPE_CHOICES, max_length=1) #выбор типа животного
-    sigma = models.BooleanField(default=False) #Клеймо
-    found_lost = models.CharField(max_length=1, choices=FOUND_CHOICES, default=FOUND) #найден или потерялся
-    data = models.DateTimeField() #Дата находки / потеряшки
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE) #ссылка на пользователя, который создал
-    rewards = models.IntegerField() #Вознаграждение
-    image1 = models.ImageField(upload_to="user_photo",blank = True,)
-    image2 = models.ImageField(upload_to="user_photo",blank = True)
-    image3 = models.ImageField(upload_to="user_photo",blank = True)
-    image4 = models.ImageField(upload_to="user_photo",blank = True)
-    description = models.TextField(max_length=1000, blank=True)
+    MALE = 'm'
+    FEMALE = 'f'
+    SEX_CHOICES = [
+        (MALE, 'мужской'),
+        (FEMALE, 'женский'),
+    ]
+
+    BLACK = 'b'
+    RED = 'r'
+    WHITE = 'w'
+    BLACK_WHITE = 'b-w'
+    COLOR_CHOICE = [
+        (BLACK, 'черный'),
+        (WHITE, 'белый'),
+        (BLACK_WHITE, 'черно-белый')
+    ]
+
+    SHORT = 's'
+    LONG = 'l'
+    NORMAL = 'n'
+    COAT_CHOICE = [
+        (SHORT, 'короткая'),
+        (LONG, 'длинная'),
+        (NORMAL, 'обычная')
+    ]
+    
+    STANDING = 's'
+    SEMI_STABLE = 's-s'
+    HANGING = 'h'
+    EARS_CHOICE = [
+        (STANDING, 'стоячие'),
+        (SEMI_STABLE, 'полустоячие'),
+        (HANGING, 'висячие')
+    ]
+
+    CROCHET = 'c'
+    SABER = 's'
+    TAIL_CHOICE = [
+        (NORMAL, 'обычный'),
+        (CROCHET, 'крючком'),
+        (SABER, 'саблевидный')
+    ]
+    
+    BIG = 'b'
+    SMALL = 's'
+    MIDDLE = 'm'
+    SIZE_CHOICE = [
+        (BIG, 'большой'),
+        (SMALL, 'маленький'),
+        (MIDDLE, 'средний'),
+    ]
 
 
+    card_pet = models.CharField(default="", max_length=15, unique=True, blank=False)                #карточка животного
+    type_pet = models.CharField(default=DOG, choices=TYPE_CHOICES, max_length=1, blank=False)       #выбор типа животного
+    age = models.IntegerField(blank=True)                                                           #возраст                           #
+    weight = models.IntegerField(blank=True)                                                        #вес                                #
+    nickname = models.CharField(default="", max_length=30, blank=True)                              #карточка животного
+    sex = models.CharField(default="", max_length=30, choices=SEX_CHOICES, blank=False)             #пол животного
+    breed_of_dog = models.CharField(default="", max_length=30, blank=True)                          #порода животного
+    color = models.CharField(default="", blank=True, choices=COLOR_CHOICE, max_length=30)           # цвет животного
+    fur = models.CharField(default="", blank=True, choices=COAT_CHOICE, max_length=30)              # шерсть
+    ears = models.CharField(default="", blank=True, choices=EARS_CHOICE, max_length=30)             # уши
+    tail = models.CharField(default="", blank=True, choices=TAIL_CHOICE, max_length=30)             # хвост
+    size = models.CharField(default="", blank=True, choices=SIZE_CHOICE, max_length=30)             # размер
+    special_signs = models.CharField(default="", blank=True, max_length=30)                         #особые приметы
+    aviary_number = models.IntegerField(blank=True)                                                 #номер вольера                      #
+    identification_mark = models.IntegerField (blank=True)                                          #идентификационная метка            #
+    sterilization_date = models.CharField(default="", blank=True, max_length=30)                    #дата стерилизации
+    veterinarian = models.CharField(default="", blank=True, max_length=30)                          # фио ветеринарного врача
+    socialized = models.CharField(default="", blank=True, choices=[('y','да'), ('n','нет')], max_length=30) #социализировано
+    act_work_order = models.CharField(default="", blank=True, max_length=30)                        #заказ-наряд акт
+    data_work_order = models.CharField(default="", blank=True, max_length=30)                       #заказ-наряд дата
+    capture_act = models.CharField(default="", blank=True, max_length=30)                           #акт отлова
+    catching_address = models.CharField(default="", blank=True, max_length=30)                      #адрес отлова
+    
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL ,on_delete=models.CASCADE, blank=True)       #сведения о новых владельцах        #
+    
+    date_admission = models.CharField(default="", blank=True, max_length=30)                        #дата поступления в приют
+    act_admission = models.CharField(default="", blank=True, max_length=30)                         #акт поступления
+    date_leaving = models.CharField(default="", blank=True, max_length=30)                          #дата выбытия
+    date_leaving = models.CharField(default="", blank=True, max_length=30)                          #дата выбытия
+    reason_leaving = models.CharField(default="", blank=True, max_length=30)                        #причина выбытия
+    act_leaving = models.CharField(default="", blank=True, max_length=30)                           #акт выбытия
+
+    shelter = models.ForeignKey(Shelter ,on_delete=models.CASCADE, blank=True)                      #информация по приюту
+
+    typevaccine = models.ManyToManyField(TypeVaccine)                          #сведения о вакцинации 
+
+    date_inspection = models.CharField(default="", blank=True, max_length=30)                        #дата обследования
+    anamnesis =models.CharField(default="", blank=True, max_length=30)                              #анамнез
+
+
+class Membership(models.Model):
+    petmodel = models.ForeignKey(PetModel, on_delete=models.CASCADE)
+    typevaccine = models.ForeignKey(TypeVaccine, on_delete=models.CASCADE)
+    date_joined = models.DateField() #дата
+    batch_number = models.CharField(max_length=64) #номер серии
+    
 #####################################################################################################################################
 
 

@@ -8,4 +8,5 @@ from app_pet.forms import *
 # Register your models here.
 admin.site.register(MyUser, UserAdmin)
 admin.site.register(PetModel)
+admin.site.register([Departament, Prefecture, Shelter,TypeVaccine, Membership])
 #admin.site.register([CreatedOntology,Triplets,RoleRestrictions,SimpleRulesForOntology])
