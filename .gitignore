@@ -1,0 +1,3 @@
+app/db.sqlite3
+app/app_pet/__pycache__/*.pyc
+app/config/__pycache__/*.pyc
