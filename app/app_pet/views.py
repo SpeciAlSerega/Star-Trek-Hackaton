@@ -32,17 +32,35 @@ def service(request):
     return render(request, 'app_pet/service.html')
 
 def add(request):
-    return render(request, 'app_pet/add.html')
+    return redirect('http://185.205.210.114:8888/admin/')   
 
 def cabinet(request):
-    return render(request, 'app_pet/add.html')
+    return redirect('http://185.205.210.114:8888/admin/')   
 
 def card(request):
     return render(request, 'app_pet/card.html')
 
 def news_portal(request):
-    n = ['DOOOOg_1__is_awesome']
-    return render(request, 'app_pet/news_portal.html', context={'news': n })
+    return redirect('https://www.mos.ru/dgkh/news/')             
+    
+def news_depart(request):
+    return redirect('https://www.mos.ru/dgkh/news/') 
+
+def news_prefect(request):
+    return redirect('https://szao.mos.ru/presscenter/news/') 
+
+def news_pitomnics(request):
+    return redirect('https://www.rbc.ru/rbcfreenews/5ecbc91a9a794729712062b5') 
+
+def news_calendar(request):##################
+    return redirect('https://www.mos.ru/dgkh/news/') 
+    
+def help_answers(request):#############
+    return render(request, 'app_pet/card.html')
+
+def  advice(request):#################
+    return render(request, 'app_pet/card.html')
+    
 
 
 # ############################################################################################
@@ -136,3 +154,7 @@ class TagUpdate(View):
 #         tag = Tag.objects.get(slug__iexact=slug)
 #         tag.delete()
 #         return redirect(reverse('tags_list_url'))
+
+# ############################################################################################
+#                                 # ПИТОМЦЫ
+# ############################################################################################

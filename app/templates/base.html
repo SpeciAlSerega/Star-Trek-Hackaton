@@ -104,21 +104,22 @@
                                         </li>
 
                                         <li><a href="{% url 'add' %}">Подать заявку</a></li>
-                                        {% comment %} <li><a  href="{% url 'card' %}">Картотека</a></li> {% endcomment %}
+                                        <li><a  href="{% url 'card' %}">Картотека</a></li>
 
                                         <li><a href="#">Новости <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <li><a href="{% url 'news_portal' %}">На портале</a></li>
-                                                {% comment %} <li><a href="{% url 'news_depart' %}">Департамент</a></li>
-                                                <li><a href="{% url 'news_week' %}">Главное за неделю</a></li>
-                                                <li><a href="{% url 'news_calendar' %}">Календарь событий</a></li> {% endcomment %}
+                                                <li><a href="{% url 'news_depart' %}">Департамент</a></li>
+                                                <li><a href="{% url 'news_prefect' %}">Префектура</a></li>
+                                                <li><a href="{% url 'news_pitomnics' %}">Питомники</a></li>
+                                                <li><a href="{% url 'news_calendar' %}">Календарь событий</a></li>
                                             </ul>
                                         </li>
 
                                        <li><a href="{% url 'help' %}">Помощь <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
-                                                {% comment %} <li><a href="{% url 'help_answers' %}">Вопросы и ответы</a></li>
-                                                <li><a href="{% url 'advice' %}">Полезные советы</a></li> {% endcomment %}
+                                                <li><a href="{% url 'help_answers' %}">Вопросы и ответы</a></li>
+                                                <li><a href="{% url 'advice' %}">Полезные советы</a></li>
                                             </ul>
                                         </li>
                                         <li><a  href="{% url 'cabinet' %}">Личный кабинет</a></li>
