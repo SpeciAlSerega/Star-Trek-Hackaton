@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_pet',
+    'rest_framework_swagger',
 ]
 
 
@@ -132,3 +133,7 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': 'config.utils.show_toolbar',
 }
 """
+
+REST_FRAMEWORK = {
+'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}

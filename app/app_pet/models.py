@@ -231,7 +231,7 @@ class PetModel(models.Model):
 
     date_inspection = models.CharField(default="", blank=True, max_length=30)                        #дата обследования
     anamnesis =models.CharField(default="", blank=True, max_length=30)                              #анамнез
-
+    
 
 class Membership(models.Model):
     petmodel = models.ForeignKey(PetModel, on_delete=models.CASCADE)

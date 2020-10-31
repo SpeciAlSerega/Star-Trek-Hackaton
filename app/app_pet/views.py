@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from django.views import View
 from django.urls import reverse
@@ -13,6 +13,10 @@ from django.views.generic import View
 from .models import Post, Tag
 from .utils import *
 from .forms import TagForm, PostForm
+
+
+
+
 
 # class Index(View):
 #     def get(self, request):
@@ -32,7 +36,7 @@ def service(request):
     return render(request, 'app_pet/service.html')
 
 def add(request):
-    return redirect('http://185.205.210.114:8888/admin/')   
+    return render(request, 'app_pet/add.html') 
 
 def cabinet(request):
     return redirect('http://185.205.210.114:8888/admin/')   
@@ -56,10 +60,10 @@ def news_calendar(request):##################
     return redirect('https://www.mos.ru/dgkh/news/') 
     
 def help_answers(request):#############
-    return render(request, 'app_pet/card.html')
+    return render(request, 'app_pet/help_answers.html')
 
 def  advice(request):#################
-    return render(request, 'app_pet/card.html')
+    return render(request, 'app_pet/advice.html')
     
 
 
@@ -158,3 +162,22 @@ class TagUpdate(View):
 # ############################################################################################
 #                                 # ПИТОМЦЫ
 # ############################################################################################
+
+
+
+class Filing(View):
+    def get(self, reqest):
+        listOfPets = list(PetModel.objects.values_list("nickname", 'sex', 'breed_of_dog', 'card_pet')) #здесь получаем список объектов питомцев
+        
+        listOfPrefectures = list(Prefecture.objects.values_list("name", flat=True))
+        return render(reqest, 'app_pet/filing/filing.html', {"listOfPets": listOfPets, "listOfPrefectures": listOfPrefectures})
+class GetPets(View):
+    def get(self,request):
+        print(request.GET.get("text"))
+        if(request.GET.get("text")!=""):
+            listOfPets = list(PetModel.objects.filter(nickname__contains=request.GET.get("text")).values_list("nickname", 'sex', 'breed_of_dog', 'card_pet'))
+            
+        else:
+            listOfPets = list(PetModel.objects.values_list("nickname", 'sex', 'breed_of_dog', 'card_pet'))
+        print(len(listOfPets))
+        return JsonResponse(listOfPets, safe=False)

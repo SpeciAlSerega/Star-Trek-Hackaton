@@ -1,0 +1,58 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Картотека - {{ block.super }}
+{% endblock %}
+
+
+
+{% block content %}
+    <div weight="50%" id="search">
+        <select id="prefectures">
+            {% for i in listOfPrefectures%}
+                <option id={{i}} name={{i}}>{{i}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="bred">Порода</label>
+        <input oninput="search_pets(this)" id="bred" type="text">
+    <div>
+
+    <div id="listPets">
+    {% for i in listOfPets %}
+        <div> {{i}} </div>
+    {% endfor %}
+    </div>
+<script>
+    function GetSyncRequest(url) //отправка синхронного или ассинхронного GET запроса
+    {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, false);
+    try {
+        xhr.send();
+        if (xhr.status != 200) {
+        alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+        }
+    } catch(err) { // для отлова ошибок используем конструкцию try...catch вместо onerror
+    alert("Запрос не удался");
+    }
+    return xhr;
+    }
+    function search_pets(n) //поиск животных
+    {
+        
+        var jsonStructClass = JSON.parse(GetSyncRequest('/getCard?text='+encodeURIComponent(document.getElementById("bred").value)).response);
+        var div = document.getElementById("listPets");
+        div.innerHTML="";
+        for(var i in jsonStructClass)
+        {
+            var subdiv = document.createElement("div");
+            subdiv.innerHTML=jsonStructClass[i];
+            div.append(subdiv)
+        }
+    }
+</script>
+{% endblock %}
