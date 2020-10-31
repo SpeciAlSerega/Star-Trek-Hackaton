@@ -216,7 +216,7 @@ class PetModel(models.Model):
     capture_act = models.CharField(default="", blank=True, max_length=30)                           #акт отлова
     catching_address = models.CharField(default="", blank=True, max_length=30)                      #адрес отлова
     
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL ,on_delete=models.CASCADE, blank=True)       #сведения о новых владельцах        #
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL ,on_delete=models.CASCADE, blank=True, null=True)       #сведения о новых владельцах        #
     
     date_admission = models.CharField(default="", blank=True, max_length=30)                        #дата поступления в приют
     act_admission = models.CharField(default="", blank=True, max_length=30)                         #акт поступления
@@ -225,9 +225,9 @@ class PetModel(models.Model):
     reason_leaving = models.CharField(default="", blank=True, max_length=30)                        #причина выбытия
     act_leaving = models.CharField(default="", blank=True, max_length=30)                           #акт выбытия
 
-    shelter = models.ForeignKey(Shelter ,on_delete=models.CASCADE, blank=True)                      #информация по приюту
+    shelter = models.ForeignKey(Shelter ,on_delete=models.CASCADE, blank=True, null=True)                      #информация по приюту
 
-    typevaccine = models.ManyToManyField(TypeVaccine)                          #сведения о вакцинации 
+    typevaccine = models.ManyToManyField(TypeVaccine, blank=True, null=True)                                       #сведения о вакцинации 
 
     date_inspection = models.CharField(default="", blank=True, max_length=30)                        #дата обследования
     anamnesis =models.CharField(default="", blank=True, max_length=30)                              #анамнез
