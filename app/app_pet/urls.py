@@ -10,9 +10,15 @@ urlpatterns = [
     path('contacts', contacts, name='contacts'),
     path('service', service, name='service'),
     path('add', add, name='add'),
+    path('card', Filing.as_view(), name='card'), #картотека
+    path('getCard',  GetPets.as_view(), name='getCard'), #получение json питомцев
     path('news_portal', news_portal, name='news_portal'),
-    path('card', card, name='card'),
-    
+    path('news_depart', news_depart, name='news_depart'),
+    path('news_prefect', news_prefect, name='news_prefect'),
+    path('news_pitomnics', news_pitomnics, name='news_pitomnics'),
+    path('news_calendar', news_calendar, name='news_calendar'),
+    path('help_answers', help_answers, name='help_answers'),
+    path('advice',  advice, name='advice'),
 
 
 # ####################################################################################

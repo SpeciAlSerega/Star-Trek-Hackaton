@@ -6576,10 +6576,10 @@ input {
   color: #9E9C9C;
 }
 button {
-  position: absolute; 
+  position: inherit; 
   top: 0;
   right: 0px;
-  width: 42px;
+  width: auto;
   height: 42px;
   border: none;
   background: #7BA7AB;

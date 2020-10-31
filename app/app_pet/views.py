@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from django.views import View
 from django.urls import reverse
@@ -32,17 +32,35 @@ def service(request):
     return render(request, 'app_pet/service.html')
 
 def add(request):
-    return render(request, 'app_pet/add.html')
+    return redirect('http://185.205.210.114:8888/admin/')   
 
 def cabinet(request):
-    return render(request, 'app_pet/add.html')
+    return redirect('http://185.205.210.114:8888/admin/')   
 
 def card(request):
     return render(request, 'app_pet/card.html')
 
 def news_portal(request):
-    n = ['DOOOOg_1__is_awesome']
-    return render(request, 'app_pet/news_portal.html', context={'news': n })
+    return redirect('https://www.mos.ru/dgkh/news/')             
+    
+def news_depart(request):
+    return redirect('https://www.mos.ru/dgkh/news/') 
+
+def news_prefect(request):
+    return redirect('https://szao.mos.ru/presscenter/news/') 
+
+def news_pitomnics(request):
+    return redirect('https://www.rbc.ru/rbcfreenews/5ecbc91a9a794729712062b5') 
+
+def news_calendar(request):##################
+    return redirect('https://www.mos.ru/dgkh/news/') 
+    
+def help_answers(request):#############
+    return render(request, 'app_pet/card.html')
+
+def  advice(request):#################
+    return render(request, 'app_pet/card.html')
+    
 
 
 # ############################################################################################
@@ -124,6 +142,22 @@ class TagUpdate(View):
             new_tag = bound_form.save()
             return redirect('tags_list')
         return render(request, 'app_pet/tag_update.html', {'form': bound_form, 'tag': tag})
+class Filing(View):
+    def get(self, reqest):
+        listOfPets = list(PetModel.objects.values_list("nickname", 'sex', 'breed_of_dog', 'card_pet')) #здесь получаем список объектов питомцев
+        
+        listOfPrefectures = list(Prefecture.objects.values_list("name", flat=True))
+        return render(reqest, 'app_pet/filing/filing.html', {"listOfPets": listOfPets, "listOfPrefectures": listOfPrefectures})
+class GetPets(View):
+    def get(self,request):
+        print(request.GET.get("text"))
+        if(request.GET.get("text")!=""):
+            listOfPets = list(PetModel.objects.filter(nickname__contains=request.GET.get("text")).values_list("nickname", 'sex', 'breed_of_dog', 'card_pet'))
+            
+        else:
+            listOfPets = list(PetModel.objects.values_list("nickname", 'sex', 'breed_of_dog', 'card_pet'))
+        print(len(listOfPets))
+        return JsonResponse(listOfPets, safe=False)
 
 # class TagDelete(View):
 #     raise_exception = True
@@ -136,3 +170,7 @@ class TagUpdate(View):
 #         tag = Tag.objects.get(slug__iexact=slug)
 #         tag.delete()
 #         return redirect(reverse('tags_list_url'))
+
+# ############################################################################################
+#                                 # ПИТОМЦЫ
+# ############################################################################################
