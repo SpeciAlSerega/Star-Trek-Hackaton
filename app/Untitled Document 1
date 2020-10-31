@@ -8,8 +8,21 @@ def aaa(az):
 	else: 
 		return ""
 z=0
+
+def intornull(az):
+	try:
+		m = int(az)
+		return m
+	except:
+		return 0 
+
 for row in range(3,244):
-	a  = PetModel(card_pet=sheet.cell(row=row, column=2).value, type_pet=sheet.cell(row=row, column=3).value, age=int(sheet.cell(row=row, column=4).value), weight = int(sheet.cell(row=row, column=5).value), nickname=sheet.cell(row=row, column=6).value, sex= sheet.cell(row=row, column=7).value, breed_of_dog=sheet.cell(row=row, column=8).value, color=sheet.cell(row=row, column=9).value, fur=sheet.cell(row=row, column=10).value, ears=sheet.cell(row=row, column=11).value, tail = sheet.cell(row=row, column=12).value, size=sheet.cell(row=row, column=13).value, special_signs = sheet.cell(row=row, column=14).value, aviary_number=int(sheet.cell(row=row, column=15).value), identification_mark=int(sheet.cell(row=row, column=16).value), sterilization_date=sheet.cell(row=row, column=17).value, veterinarian=sheet.cell(row=row, column=18).value, socialized=sheet.cell(row=row, column=19).value, act_work_order=sheet.cell(row=row, column=20).value, data_work_order=sheet.cell(row=row, column=21).value, capture_act=sheet.cell(row=row, column=23).value, catching_address=sheet.cell(row=row, column=24).value, date_admission = sheet.cell(row=row, column=28).value, act_admission=sheet.cell(row=row, column=29).value, date_leaving= aaa(sheet.cell(row=row, column=30).value), reason_leaving = aaa(sheet.cell(row=row, column=31).value), act_leaving= aaa(sheet.cell(row=row, column=32).value), date_inspection = aaa(sheet.cell(row=row, column=45).value), anamnesis = aaa(sheet.cell(row=row, column=46).value))
-	a.save()
+	try:
+		a  = PetModel(card_pet=aaa(sheet.cell(row=row, column=2).value), type_pet=aaa(sheet.cell(row=row, column=3).value), age=intornull(sheet.cell(row=row, column=4).value), weight = intornull(sheet.cell(row=row, column=5).value), nickname=aaa(sheet.cell(row=row, column=6).value), sex= aaa(sheet.cell(row=row, column=7).value), breed_of_dog=aaa(sheet.cell(row=row, column=8).value), color=aaa(sheet.cell(row=row, column=9).value), fur=aaa(sheet.cell(row=row, column=10).value), ears=aaa(sheet.cell(row=row, column=11).value), tail = aaa(sheet.cell(row=row, column=12).value), size=aaa(sheet.cell(row=row, column=13).value), special_signs = aaa(sheet.cell(row=row, column=14).value), aviary_number=intornull(sheet.cell(row=row, column=15).value), identification_mark=intornull(sheet.cell(row=row, column=16).value), sterilization_date=aaa(sheet.cell(row=row, column=17).value), veterinarian=aaa(sheet.cell(row=row, column=18).value), socialized=aaa(sheet.cell(row=row, column=19).value), act_work_order=aaa(sheet.cell(row=row, column=20).value), data_work_order=aaa(sheet.cell(row=row, column=21).value), capture_act=aaa(sheet.cell(row=row, column=23).value), catching_address=aaa(sheet.cell(row=row, column=24).value), date_admission = aaa(sheet.cell(row=row, column=28).value), act_admission=aaa(sheet.cell(row=row, column=29).value), date_leaving= aaa(sheet.cell(row=row, column=30).value), reason_leaving = aaa(sheet.cell(row=row, column=31).value), act_leaving= aaa(sheet.cell(row=row, column=32).value), date_inspection = aaa(sheet.cell(row=row, column=45).value), anamnesis = aaa(sheet.cell(row=row, column=46).value))
+		a.save()
+	except:
+		print(z)
+	z+=1
+	
 	
 
