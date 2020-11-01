@@ -21,16 +21,25 @@ from django.views import View
 class Departament(models.Model):
     name = models.CharField(max_length=50)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    class Meta:
+        verbose_name = 'Департамент ЖКХ'
+        verbose_name_plural = 'Департаменты ЖКХ'
 
 class Prefecture(models.Model):
     name = models.CharField(max_length=50)
     departament = models.ForeignKey(Departament, on_delete=models.CASCADE, null=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    class Meta:
+        verbose_name = 'Префектура'
+        verbose_name_plural = 'Префектуры'
+
 class Shelter(models.Model):
     name = models.CharField(max_length=50)
     prefecture = models.ForeignKey(Prefecture, on_delete=models.CASCADE,null=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL)
-
+    class Meta:
+        verbose_name = 'Приют'
+        verbose_name_plural = 'Приюты'
 
 #################################################################################################################################
 #########################################               МОДЕЛЬ ПОЛЬЗОВАТЕЛЯ             #########################################
@@ -67,7 +76,9 @@ class MyUserManager(BaseUserManager):
         user.is_admin = True
         user.save(using=self._db)
         return user
-
+    class Meta:
+        verbose_name = 'Управляющий'
+        verbose_name_plural = 'Управляющие'
 
 
 class MyUser(AbstractBaseUser):
@@ -118,13 +129,18 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
-
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
 #####################################################################################################################################
 #############################################                   МОДЕЛЬ ПИТОМЦА              #########################################
 #####################################################################################################################################
 
 class TypeVaccine(models.Model): #Вид вакцины
     name = models.CharField(max_length=30, unique=True, blank=False)
+    class Meta:
+        verbose_name = 'Вакцина'
+        verbose_name_plural = 'Вакцины'
 
 class PetModel(models.Model):
     DOG = 'd'
@@ -192,6 +208,8 @@ class PetModel(models.Model):
         (MIDDLE, 'средний'),
     ]
 
+    image = models.ImageField(upload_to="user_photo",blank = True,)
+
 
     card_pet = models.CharField(default="", max_length=15, unique=True, blank=False)                #карточка животного
     type_pet = models.CharField(default=DOG, choices=TYPE_CHOICES, max_length=1, blank=False)       #выбор типа животного
@@ -225,19 +243,27 @@ class PetModel(models.Model):
     reason_leaving = models.CharField(default="", blank=True, max_length=30)                        #причина выбытия
     act_leaving = models.CharField(default="", blank=True, max_length=30)                           #акт выбытия
 
-    shelter = models.ForeignKey(Shelter ,on_delete=models.CASCADE, blank=True, null=True)                      #информация по приюту
 
-    typevaccine = models.ManyToManyField(TypeVaccine, blank=True, null=True)                                       #сведения о вакцинации 
+
+    shelter = models.ForeignKey(Shelter ,on_delete=models.CASCADE,blank=True, null=True)                      #информация по приюту
+
+    typevaccine = models.ManyToManyField(TypeVaccine, blank=True, null=True)                          #сведения о вакцинации 
+
 
     date_inspection = models.CharField(default="", blank=True, max_length=30)                        #дата обследования
     anamnesis =models.CharField(default="", blank=True, max_length=30)                              #анамнез
-
+    class Meta:
+        verbose_name = 'Питомец'
+        verbose_name_plural = 'Питомцы'
 
 class Membership(models.Model):
     petmodel = models.ForeignKey(PetModel, on_delete=models.CASCADE)
     typevaccine = models.ForeignKey(TypeVaccine, on_delete=models.CASCADE)
     date_joined = models.DateField() #дата
     batch_number = models.CharField(max_length=64) #номер серии
+    class Meta:
+        verbose_name = 'Информация о вакцине'
+        verbose_name_plural = 'Информации о вакцинах'
     
 #####################################################################################################################################
 

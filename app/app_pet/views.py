@@ -10,9 +10,21 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import View
 
-from .models import Post, Tag
+from .models import *
 from .utils import *
 from .forms import TagForm, PostForm
+
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+
+from app_pet.serializers import PetModelSerializerModel 
+
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+
+
 
 # class Index(View):
 #     def get(self, request):
@@ -32,7 +44,7 @@ def service(request):
     return render(request, 'app_pet/service.html')
 
 def add(request):
-    return redirect('http://185.205.210.114:8888/admin/')   
+    return render(request, 'app_pet/add.html') 
 
 def cabinet(request):
     return redirect('http://185.205.210.114:8888/admin/')   
@@ -56,10 +68,16 @@ def news_calendar(request):##################
     return redirect('https://www.mos.ru/dgkh/news/') 
     
 def help_answers(request):#############
-    return render(request, 'app_pet/card.html')
+    return render(request, 'app_pet/help_answers.html')
 
 def  advice(request):#################
-    return render(request, 'app_pet/card.html')
+    return render(request, 'app_pet/advice.html')
+
+def  lenta(request):#################
+    return render(request, 'app_pet/lenta.html')
+
+def  ii(request):#################
+    return render(request, 'app_pet/ii.html')
     
 
 
@@ -96,6 +114,50 @@ class PostUpdate(View):
             new_post = bound_form.save()
             return redirect('post_list')
         return render(request, 'app_pet/post_update.html', {'form': bound_form, 'post': post})
+
+#########################       REST        ##############
+@api_view(['GET', 'POST'])
+def rest_pets(request):
+    if request.method == 'GET':
+        pets = PetModel.objects.all()
+        serializer = PetModelSerializerModel(pets, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = PetModelSerializerModel(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def rest_pets_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        pets = PetModel.objects.all()[pk]
+        
+    except PetModel.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = PetModelSerializerModel(pets)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = PetModelSerializerModel(pets, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return HttpResponse(status=204)
+
 
 # class PostDelete(View):
 #     raise_exception = True
@@ -174,3 +236,22 @@ class GetPets(View):
 # ############################################################################################
 #                                 # ПИТОМЦЫ
 # ############################################################################################
+
+
+
+class Filing(View):
+    def get(self, reqest):
+        listOfPets = list(PetModel.objects.values_list("nickname", 'sex', 'breed_of_dog', 'card_pet')) #здесь получаем список объектов питомцев
+        
+        listOfPrefectures = list(Prefecture.objects.values_list("name", flat=True))
+        return render(reqest, 'app_pet/filing/filing.html', {"listOfPets": listOfPets, "listOfPrefectures": listOfPrefectures})
+class GetPets(View):
+    def get(self,request):
+        print(request.GET.get("text"))
+        if(request.GET.get("text")!=""):
+            listOfPets = list(PetModel.objects.filter(nickname__contains=request.GET.get("text")).values_list("nickname", 'sex', 'breed_of_dog', 'card_pet'))
+            
+        else:
+            listOfPets = list(PetModel.objects.values_list("nickname", 'sex', 'breed_of_dog', 'card_pet'))
+        print(len(listOfPets))
+        return JsonResponse(listOfPets, safe=False)

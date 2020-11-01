@@ -1,6 +1,13 @@
 <!doctype html>
-{% extends 'base.html' %} 
+
+{% extends 'base.html' %}
 {% load static %}
+
+{% block title %}
+  Картотека - {{ block.super }}
+{% endblock %}
+
+
 
 
 {% block content %}

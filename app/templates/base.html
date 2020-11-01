@@ -15,7 +15,21 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.png" %}">
     <!-- Place favicon.ico in the root directory -->
-    
+	{% comment %} <!-- Bootstrap 4.0-->
+	<link rel="stylesheet" href="{%  static 'assets/vendor_components/bootstrap/dist/css/bootstrap.min.css'%}">
+	
+	<!-- Bootstrap extend-->
+	<link rel="stylesheet" href="{%  static 'css/bootstrap-extend.css'%}">	
+	
+	<!-- Theme style -->
+	<link rel="stylesheet" href="{%  static 'css/master_style.css'%}">
+	
+	<!-- horizontal menu style -->
+	<link rel="stylesheet" href="{%  static 'css/horizontal_menu_style.css'%}">
+
+	<!-- Fab Admin skins -->
+	<link rel="stylesheet" href="{%  static 'css/skins/_all-skins.css'%}"> {% endcomment %}
+
     <!-- CSS here -->
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "css/owl.carousel.min.css" %}">
@@ -100,11 +114,17 @@
                                                     </ul>
                                                 </li>
                                                 
-                                            </ul>
+                                            </ul><li><a href="{% url 'add' %}">Подать заявку<i></i></a>
                                         </li>
 
-                                        <li><a href="{% url 'add' %}">Подать заявку</a></li>
-                                        <li><a  href="{% url 'card' %}">Картотека</a></li>
+
+                                       <li><a href="{% url 'help' %}">Каталог <i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'card' %}">Картотека</a></li>
+                                                <li><a href="{% url 'lenta' %}">Сетка</a></li>
+                                                <li><a href="{% url 'ii' %}">Умное распознавание</a></li>
+                                            </ul>
+                                        </li>
 
                                         <li><a href="#">Новости <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
@@ -253,6 +273,20 @@
     </footer>
     <!-- footer_end  -->
 
+{% comment %} <!-- jQuery 3 -->
+	<script src="{%  static 'assets/vendor_components/jquery/dist/jquery.min.js' %}"></script>
+	
+	<!-- popper -->
+	<script src="{%  static 'assets/vendor_components/popper/dist/popper.min.js' %}"></script>
+	
+	<!-- Bootstrap 4.0-->
+	<script src="{%  static 'assets/vendor_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+	
+	<!-- SlimScroll -->
+	<script src="{%  static 'assets/vendor_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+	
+	<!-- FastClick -->
+	<script src="{%  static 'assets/vendor_components/fastclick/lib/fastclick.js' %}"></script> {% endcomment %}
 
     <!-- JS here -->
     <script src="{% static  "js/vendor/modernizr-3.5.0.min.js" %}"></script>

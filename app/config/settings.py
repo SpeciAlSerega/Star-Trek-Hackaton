@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_pet',
+    'rest_framework',
 ]
 
 
@@ -57,7 +58,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
 
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
 
         'APP_DIRS': True,
         'OPTIONS': {
@@ -123,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_ROOT = 'app_pet/media/'
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
 AUTH_USER_MODEL = 'app_pet.MyUser'
 
@@ -132,3 +133,7 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': 'config.utils.show_toolbar',
 }
 """
+
+REST_FRAMEWORK = {
+'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
