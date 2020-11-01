@@ -67,6 +67,9 @@ def  advice(request):#################
 
 def  lenta(request):#################
     return render(request, 'app_pet/lenta.html')
+
+def  ii(request):#################
+    return render(request, 'app_pet/ii.html')
     
 
 
