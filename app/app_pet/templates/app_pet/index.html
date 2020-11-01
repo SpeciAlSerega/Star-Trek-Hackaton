@@ -60,8 +60,8 @@
                              </div>
                          </div>
                          <div class="service_content text-center">
-                            <h3>Современный интерфейс</h3>
-                            <p>Простой и удобный,выдержанный по всем требованиям нынешних реалий сервис, порадует всех настоящих пользователей</p>
+                            <h3>Мониторинг</h3>
+                            <p>Простой и удобный,выдержанный по всем требованиям нынешних реалий мониторинг за животными, порадует всех настоящих пользователей</p>
                          </div>
                     </div>
                 </div>
@@ -108,6 +108,9 @@
         </div>
     </div>
     <!-- pet_care_area_end  -->
+
+
+
 
     <!-- adapt_area_start  -->
     <div class="adapt_area">
@@ -312,6 +315,137 @@
             </div>
         </div>
     </div>
+<head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=1024">
+      <title>1: No CSS</title>
+   </head>
+ 
+   <body>
+       <div class="service_area">
+        <div class="container">
+            <div class="row justify-content-center ">
+      <div id="wrapper">
+         <div class="chart">
+            <h3>Мониторинг изменения реестра животных без владельца</h3>
+            <table id="data-table" border="1" cellpadding="10" cellspacing="0"
+            summary="">
+               <caption>Исчисление в единицах</caption>
+               <thead>
+                  <tr>
+                     <td>&nbsp;</td>
+                     <th scope="col">2017</th>
+                     <th scope="col">2018</th>
+                     <th scope="col">2019</th>
+                     <th scope="col">2020</th>
+                     <th scope="col">2021</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <th scope="row">Прибавилось</th>
+                     <td>906</td>
+                     <td>430</td>
+                     <td>879</td>
+                     <td>361</td>
+                     <td>...</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">Смерть</th>
+                     <td>23</td>
+                     <td>55</td>
+                     <td>12</td>
+                     <td>10</td>
+                     <td>...</td>
+                  </tr>
+                  <tr>
+                     <th scope="row">Отдано в добрые руки</th>
+                     <td>422</td>
+                     <td>566</td>
+                     <td>976</td>
+                     <td>216</td>
+                     <td>...</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      </div>
+      </div>
+      </div>
+   </body>
+   
+   
+   
+   <div class="container">
+     <canvas id="myChart" width="100" height="50"></canvas>
+</div>
+
+
+<html>
+
+ <head>
+
+<meta charset="utf-8">
+
+ <title>Круговая диаграмма</title>
+
+   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+   <script type="text/javascript">
+
+     google.load("visualization", "1", {packages:["corechart"]});
+
+     google.setOnLoadCallback(drawChart);
+
+     function drawChart() {
+
+       var data = google.visualization.arrayToDataTable([
+
+         ['CMS', 'Сайты на базе систем управления контентом'],
+
+         ['Прибавилось',     67.6],
+
+         ['Отдано в добрые руки',     30.0],
+
+         ['Смерть',     2.4],
+
+       ]);
+
+       var options = {
+
+       title: 'Мониторинг на момент 1.11.2020',
+
+            pieHole: 0.5,
+
+         pieSliceTextStyle: {
+
+           color: 'black',
+
+         },
+
+         legend: 'none'
+
+       };
+
+       var chart = new google.visualization.PieChart(document.getElementById('donut_single'));
+
+       chart.draw(data, options);
+
+     }
+
+   </script>
+
+ </head>
+
+ <body>
+
+   <div id="donut_single" style="width: 900px; height: 500px;"></div>
+
+ </body>
+
+</html>
+
 
 
 {% endblock %}
