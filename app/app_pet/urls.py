@@ -23,6 +23,10 @@ urlpatterns = [
     path('advice/',  advice, name='advice'),
     path('lenta/',  lenta, name='lenta'),
     path('ii/',  ii, name='ii'),
+
+    ###################             REST            ###################
+    path('rest_api/', rest_pets, name='api'),
+    path('rest_api/<int:pk>/', rest_pets_detail),
     
 
 

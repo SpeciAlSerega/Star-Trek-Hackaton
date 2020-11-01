@@ -14,7 +14,39 @@ from .models import Post, Tag
 from .utils import *
 from .forms import TagForm, PostForm
 
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
 
+from app_pet.serializers import PetModelSerializerModel 
+
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+from django.shortcuts import render
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.http import HttpResponse, JsonResponse
+
+from django.views import View
+from django.urls import reverse
+
+
+from django.http import HttpResponseRedirect
+from django.views.generic import View
+
+from .models import *
+from .utils import *
+from .forms import TagForm, PostForm
+
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+
+from app_pet.serializers import PetModelSerializerModel 
+
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
 
@@ -69,9 +101,9 @@ def  lenta(request):#################
     return render(request, 'app_pet/lenta.html')
 
 def  ii(request):#################
-    return render(request, 'app_pet/ii.html')
+    a = PetModel
+    return render(request, 'app_pet/ii.html', {'a': a})
     
-
 
 # ############################################################################################
 #                                 # ПОСТЫ
@@ -187,3 +219,48 @@ class GetPets(View):
             listOfPets = list(PetModel.objects.values_list("nickname", 'sex', 'breed_of_dog', 'card_pet'))
         print(len(listOfPets))
         return JsonResponse(listOfPets, safe=False)
+
+
+
+#########################       REST        ##############
+@api_view(['GET', 'POST'])
+def rest_pets(request):
+    if request.method == 'GET':
+        pets = PetModel.objects.all()
+        serializer = PetModelSerializerModel(pets, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = PetModelSerializerModel(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def rest_pets_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        pets = PetModel.objects.all()[pk]
+        
+    except PetModel.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = PetModelSerializerModel(pets)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = PetModelSerializerModel(pets, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return HttpResponse(status=204)
