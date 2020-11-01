@@ -1,0 +1,733 @@
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Сетка - {{ block.super }}
+{% endblock %}
+    
+
+{% block content %}
+
+            <h1 class="mb-5">Картотека :</h1> {% endcomment %}
+{% comment %} ########################################################################## {% endcomment %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>
+        {% block title %}
+            Pet's Planet
+        {% endblock %}
+    </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.png" %}">
+    <!-- Place favicon.ico in the root directory -->
+	<!-- Bootstrap 4.0-->
+	<link rel="stylesheet" href="{%  static 'assets/vendor_components/bootstrap/dist/css/bootstrap.min.css'%}">
+	
+	<!-- Bootstrap extend-->
+	<link rel="stylesheet" href="{%  static 'css/bootstrap-extend.css'%}">	
+	
+	<!-- Theme style -->
+	<link rel="stylesheet" href="{%  static 'css/master_style.css'%}">
+	
+	<!-- horizontal menu style -->
+	<link rel="stylesheet" href="{%  static 'css/horizontal_menu_style.css'%}">
+
+	<!-- Fab Admin skins -->
+	<link rel="stylesheet" href="{%  static 'css/skins/_all-skins.css'%}">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/owl.carousel.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/themify-icons.css" %}">
+    <link rel="stylesheet" href="{% static "css/nice-select.css" %}">
+    <link rel="stylesheet" href="{% static "css/flaticon.css" %}">
+    <link rel="stylesheet" href="{% static "css/gijgo.css" %}">
+    <link rel="stylesheet" href="{% static "css/animate.css" %}">
+    <link rel="stylesheet" href="{% static "css/slicknav.css" %}">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <!-- <link rel="stylesheet" href="css/responsive.css" %}"> -->
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <header>
+        <div class="header-area ">
+            <div class="header-top_area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-8">
+                            <div class="short_contact_list">
+                                <ul>
+                                    <li><a href="#">+7(495)-514-49-02</a></li>
+                                    <li><a href="#">Интегрировано c</a></li> 
+								    <li><a href="https://www.mos.ru/"><span style="color: red;">mos.ru</span></a></li>
+									
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4 ">
+                            <div class="social_media_links">
+                                <a href="https://vk.com/">
+                                    <i class="fa fa-vk"></i>
+                                </a>
+                                <a href="https://ok.ru/">
+                                    <i class="fa fa-odnoklassniki"></i>
+                                </a>
+                                <a href="https://www.instagram.com/">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sticky-header" class="main-header-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-3 col-lg-3">
+                            <div class="logo">
+                                <a href="{% url 'index' %}">
+                                    <img src="{% static "img/logo.png" %}" alt="">    
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9">
+						
+                            <div class="main-menu  d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+
+                                        <li><a href="{% url 'about' %}">О нас <i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'contacts' %}">Контакты</a></li>
+                                                <li><a href="{% url 'service' %}">Разработчики</a></li>
+                                                <li><a href="#">Отзывы <i class="ti-angle-down"></i></a>
+                                                    <ul class="submenu">
+                                                        <li><a href="{% url 'posts_list_url' %}">Комментарии</a>
+                                                            <ul class="submenu"><li><a href="{% url 'post_create_url' %}">Оставить комментарий</a>
+                                                        </li> 
+                                                            <li><a href="{% url 'tags_list_url' %}">Теги</a>
+                                                                <ul class="submenu"><li><a href="{% url 'tag_create_url' %}">Добавить новый тег</a>
+                                                            </li>
+                                                            </ul>
+                                                        </ul>
+                                                    </ul>
+                                                </li>
+                                                
+                                            </ul>
+                                        </li>
+
+
+                                       <li><a href="{% url 'help' %}">Каталог <i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'card' %}">Картотека</a></li>
+                                                <li><a href="{% url 'lenta' %}">Сетка</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li><a href="#">Новости <i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'news_portal' %}">На портале</a></li>
+                                                <li><a href="{% url 'news_depart' %}">Департамент</a></li>
+                                                <li><a href="{% url 'news_prefect' %}">Префектура</a></li>
+                                                <li><a href="{% url 'news_pitomnics' %}">Питомники</a></li>
+                                                <li><a href="{% url 'news_calendar' %}">Календарь событий</a></li>
+                                            </ul>
+                                        </li>
+
+                                       <li><a href="{% url 'help' %}">Помощь <i class="ti-angle-down"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'help_answers' %}">Вопросы и ответы</a></li>
+                                                <li><a href="{% url 'advice' %}">Полезные советы</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a  href="{% url 'cabinet' %}">Личный кабинет</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+
+{% comment %} #################################################################################### {% endcomment %}
+
+
+
+
+
+
+
+
+
+{% comment %} ########################################################################## {% endcomment %}
+
+                    <!-- Main content -->
+    <section class="content">
+	  
+		<div class="row">
+          <div class="col-6 col-md-6 col-lg-4 col-xl-4">
+            <div class="box box-body">
+              <div class="flexbox align-items-center">
+				<div class="flexbox">
+					<label class="toggler toggler-yellow">
+					  <input type="checkbox" checked>
+					  <i class="fa fa-star"></i>
+					</label>
+					<h4 class="ml-10 mb-0"><a href="#">Elizabeth</a></h4>				  
+				</div>
+                <div class="dropdown">
+                  <a data-toggle="dropdown" href="#" aria-expanded="false"><i class="ion-android-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center pt-15">
+                <a href="#" class="pull-left">
+                  <img class="avatar avatar-xxl rounded" src="{% static "1.jpg"%}" alt="">
+                </a>
+                <h5 class="user-info mt-0 mb-5">без клички</h5>
+				<p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>Card pet: 199-19</p>
+				<p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Age:2018</p>
+        <p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Type pet: кошка</p>
+        <p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>пол: жен</p>
+				  <div class="gap-items user-social font-size-16">
+					<a class="text-facebook" href="#"><i class="fa fa-facebook"></i></a>
+					<a class="text-instagram" href="#"><i class="fa fa-instagram"></i></a>
+					<a class="text-google" href="#"><i class="fa fa-google"></i></a>
+					<a class="text-twitter" href="#"><i class="fa fa-twitter"></i></a>
+				  </div>
+              </div>
+            </div>
+          </div>
+         
+         
+
+
+                   <div class="col-6 col-md-6 col-lg-4 col-xl-4">
+            <div class="box box-body">
+              <div class="flexbox align-items-center">
+				<div class="flexbox">
+					<label class="toggler toggler-yellow">
+					  <input type="checkbox" checked>
+					  <i class="fa fa-star"></i>
+					</label>
+					<h4 class="ml-10 mb-0"><a href="#">Tristan</a></h4>				  
+				</div>
+                <div class="dropdown">
+                  <a data-toggle="dropdown" href="#" aria-expanded="false"><i class="ion-android-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center pt-15">
+                <a href="#" class="pull-left">
+                  <img class="avatar avatar-xxl rounded" src="{% static "2.jpg"%}" alt="">
+                </a>
+                <h5 class="user-info mt-0 mb-5">без клички</h5>
+				<p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>Card pet: 146-19</p>
+				<p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Age:2017</p>
+        <p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Type pet: кошка</p>
+        <p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>пол: муж</p>
+				  <div class="gap-items user-social font-size-16">
+					<a class="text-facebook" href="#"><i class="fa fa-facebook"></i></a>
+					<a class="text-instagram" href="#"><i class="fa fa-instagram"></i></a>
+					<a class="text-google" href="#"><i class="fa fa-google"></i></a>
+					<a class="text-twitter" href="#"><i class="fa fa-twitter"></i></a>
+				  </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+                    <div class="col-6 col-md-6 col-lg-4 col-xl-4">
+            <div class="box box-body">
+              <div class="flexbox align-items-center">
+				<div class="flexbox">
+					<label class="toggler toggler-yellow">
+					  <input type="checkbox" checked>
+					  <i class="fa fa-star"></i>
+					</label>
+					<h4 class="ml-10 mb-0"><a href="#">Sophia</a></h4>				  
+				</div>
+                <div class="dropdown">
+                  <a data-toggle="dropdown" href="#" aria-expanded="false"><i class="ion-android-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center pt-15">
+                <a href="#" class="pull-left">
+                  <img class="avatar avatar-xxl rounded" src="{% static "3.jpg"%}" alt="">
+                </a>
+                <h5 class="user-info mt-0 mb-5">без клички</h5>
+				<p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>Card pet: 40-19</p>
+				<p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Age:2018</p>
+        <p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Type pet: кошка</p>
+        <p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>пол: муж</p>
+				  <div class="gap-items user-social font-size-16">
+					<a class="text-facebook" href="#"><i class="fa fa-facebook"></i></a>
+					<a class="text-instagram" href="#"><i class="fa fa-instagram"></i></a>
+					<a class="text-google" href="#"><i class="fa fa-google"></i></a>
+					<a class="text-twitter" href="#"><i class="fa fa-twitter"></i></a>
+				  </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+                    <div class="col-6 col-md-6 col-lg-4 col-xl-4">
+            <div class="box box-body">
+              <div class="flexbox align-items-center">
+				<div class="flexbox">
+					<label class="toggler toggler-yellow">
+					  <input type="checkbox" checked>
+					  <i class="fa fa-star"></i>
+					</label>
+					<h4 class="ml-10 mb-0"><a href="#">Jacob</a></h4>				  
+				</div>
+                <div class="dropdown">
+                  <a data-toggle="dropdown" href="#" aria-expanded="false"><i class="ion-android-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center pt-15">
+                <a href="#" class="pull-left">
+                  <img class="avatar avatar-xxl rounded" src="{% static "4.jpg"%}" alt="">
+                </a>
+                <h5 class="user-info mt-0 mb-5">без клички</h5>
+				<p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>Card pet: 6.2</p>
+				<p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Age:0</p>
+        <p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Type pet: кошка</p>
+        <p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>пол: муж</p>
+				  <div class="gap-items user-social font-size-16">
+					<a class="text-facebook" href="#"><i class="fa fa-facebook"></i></a>
+					<a class="text-instagram" href="#"><i class="fa fa-instagram"></i></a>
+					<a class="text-google" href="#"><i class="fa fa-google"></i></a>
+					<a class="text-twitter" href="#"><i class="fa fa-twitter"></i></a>
+				  </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+                    <div class="col-6 col-md-6 col-lg-4 col-xl-4">
+            <div class="box box-body">
+              <div class="flexbox align-items-center">
+				<div class="flexbox">
+					<label class="toggler toggler-yellow">
+					  <input type="checkbox" checked>
+					  <i class="fa fa-star"></i>
+					</label>
+					<h4 class="ml-10 mb-0"><a href="#">Isabella</a></h4>				  
+				</div>
+                <div class="dropdown">
+                  <a data-toggle="dropdown" href="#" aria-expanded="false"><i class="ion-android-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center pt-15">
+                <a href="#" class="pull-left">
+                  <img class="avatar avatar-xxl rounded" src="{% static "5.jpg"%}" alt="">
+                </a>
+                <h5 class="user-info mt-0 mb-5">Перчик</h5>
+				<p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>Card pet: 157</p>
+				<p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Age:2019</p>
+        <p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Type pet: кошка</p>
+        <p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>пол: муж</p>
+				  <div class="gap-items user-social font-size-16">
+					<a class="text-facebook" href="#"><i class="fa fa-facebook"></i></a>
+					<a class="text-instagram" href="#"><i class="fa fa-instagram"></i></a>
+					<a class="text-google" href="#"><i class="fa fa-google"></i></a>
+					<a class="text-twitter" href="#"><i class="fa fa-twitter"></i></a>
+				  </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+                    <div class="col-6 col-md-6 col-lg-4 col-xl-4">
+            <div class="box box-body">
+              <div class="flexbox align-items-center">
+				<div class="flexbox">
+					<label class="toggler toggler-yellow">
+					  <input type="checkbox" checked>
+					  <i class="fa fa-star"></i>
+					</label>
+					<h4 class="ml-10 mb-0"><a href="#">Emma</a></h4>				  
+				</div>
+                <div class="dropdown">
+                  <a data-toggle="dropdown" href="#" aria-expanded="false"><i class="ion-android-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center pt-15">
+                <a href="#" class="pull-left">
+                  <img class="avatar avatar-xxl rounded" src="{% static "6.jpg"%}" alt="">
+                </a>
+                <h5 class="user-info mt-0 mb-5">Тереза</h5>
+				<p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>Card pet: 170</p>
+				<p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Age:2016</p>
+        <p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Type pet: кошка</p>
+        <p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>пол: муж</p>
+				  <div class="gap-items user-social font-size-16">
+					<a class="text-facebook" href="#"><i class="fa fa-facebook"></i></a>
+					<a class="text-instagram" href="#"><i class="fa fa-instagram"></i></a>
+					<a class="text-google" href="#"><i class="fa fa-google"></i></a>
+					<a class="text-twitter" href="#"><i class="fa fa-twitter"></i></a>
+				  </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+                    <div class="col-6 col-md-6 col-lg-4 col-xl-4">
+            <div class="box box-body">
+              <div class="flexbox align-items-center">
+				<div class="flexbox">
+					<label class="toggler toggler-yellow">
+					  <input type="checkbox" checked>
+					  <i class="fa fa-star"></i>
+					</label>
+					<h4 class="ml-10 mb-0"><a href="#">William</a></h4>				  
+				</div>
+                <div class="dropdown">
+                  <a data-toggle="dropdown" href="#" aria-expanded="false"><i class="ion-android-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center pt-15">
+                <a href="#" class="pull-left">
+                  <img class="avatar avatar-xxl rounded" src="{% static "7.jpg"%}" alt="">
+                </a>
+                <h5 class="user-info mt-0 mb-5">Луна</h5>
+				<p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>Card pet: 158</p>
+				<p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Age:2017</p>
+        <p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Type pet: кошка</p>
+        <p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>пол: муж</p>
+				  <div class="gap-items user-social font-size-16">
+					<a class="text-facebook" href="#"><i class="fa fa-facebook"></i></a>
+					<a class="text-instagram" href="#"><i class="fa fa-instagram"></i></a>
+					<a class="text-google" href="#"><i class="fa fa-google"></i></a>
+					<a class="text-twitter" href="#"><i class="fa fa-twitter"></i></a>
+				  </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+                    <div class="col-6 col-md-6 col-lg-4 col-xl-4">
+            <div class="box box-body">
+              <div class="flexbox align-items-center">
+				<div class="flexbox">
+					<label class="toggler toggler-yellow">
+					  <input type="checkbox" checked>
+					  <i class="fa fa-star"></i>
+					</label>
+					<h4 class="ml-10 mb-0"><a href="#">Michael</a></h4>				  
+				</div>
+                <div class="dropdown">
+                  <a data-toggle="dropdown" href="#" aria-expanded="false"><i class="ion-android-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center pt-15">
+                <a href="#" class="pull-left">
+                  <img class="avatar avatar-xxl rounded" src="{% static "8.jpg"%}" alt="">
+                </a>
+                <h5 class="user-info mt-0 mb-5">без клички</h5>
+				<p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>Card pet: 54</p>
+				<p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Age:0</p>
+        <p class="user-info mt-0 mb-10"><i class="fa  pr-15"></i>Type pet: кошка</p>
+        <p class="user-info mt-0 mb-5"><i class="fa  pr-15"></i>пол: муж</p>
+				  <div class="gap-items user-social font-size-16">
+					<a class="text-facebook" href="#"><i class="fa fa-facebook"></i></a>
+					<a class="text-instagram" href="#"><i class="fa fa-instagram"></i></a>
+					<a class="text-google" href="#"><i class="fa fa-google"></i></a>
+					<a class="text-twitter" href="#"><i class="fa fa-twitter"></i></a>
+				  </div>
+              </div>
+            </div>
+          </div>
+		
+
+		
+    </section>
+
+            
+
+
+
+{% comment %} ########################################################################## {% endcomment %}
+            {% comment %} </div>
+    </div>
+</div> {% endcomment %}
+
+{% comment %} {% endblock %} {% endcomment %}
+     
+    
+    {% comment %} #################################################################################### {% endcomment %}
+
+
+
+
+    <!-- footer_start  -->
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Обратная связь
+                            </h3>
+                            <ul class="address_line">
+                                <li>+7(495)-514-49-02</li>
+                                <li><a href="http://185.205.210.114:8888">StarTrekCompany.com</a></li>
+                                <li>Спб, ул.Манежная, д.1</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3  col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Разработчики
+                            </h3>
+                            <ul class="links">
+                                <li><a href="https://web.telegram.org/#/login">Директор</a></li>
+                                <li><a href="https://web.telegram.org/#/login">Бэк-энд специалист</a></li>
+                                <li><a href="https://web.telegram.org/#/login">Фронт-энд специалист</a></li>
+                                <li><a href="https://web.telegram.org/#/login">Идейный специалист</a></li>
+                                <li><a href="https://web.telegram.org/#/login">Специалист БД</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3  col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Мобильные приложения
+                            </h3>
+                            <ul class="links">
+                                <li><a href="https://www.apple.com/app-store/">App Store</a></li>
+                                <li><a href="https://play.google.com/store?hl=ru&gl=US">Google Play</a></li>
+                                <li><a href="https://appgallery.huawei.com/#/Featured">AppGallery</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-lg-3 ">
+                        <div class="footer_widget">
+                            <div class="footer_logo">
+                                <a href="#">
+                                    <img src="{% static "img/logo.png" %}" alt="">
+                                </a>
+                            </div>
+                            <p class="address_text">Если острова - то только такие! 
+                            </p>
+                            <div class="socail_links">
+                                <ul>
+                                    <li>
+                                        <a href="https://ru-ru.facebook.com/">
+                                            <i class="ti-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.pinterest.ru/">
+                                            <i class="ti-pinterest"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://plus.google.com">
+                                            <i class="fa fa-google-plus"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://dostup-linkedin.com/">
+                                            <i class="fa fa-linkedin"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right_text">
+            <div class="container">
+                <div class="bordered_1px"></div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="copy_right text-center">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This page is made with  <i class="ti-heart" aria-hidden="true"></i> by <a href="http://185.205.210.114:8888" target="_blank">StarTrekCompany</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer_end  -->
+
+<!-- jQuery 3 -->
+	<script src="{%  static 'assets/vendor_components/jquery/dist/jquery.min.js' %}"></script>
+	
+	<!-- popper -->
+	<script src="{%  static 'assets/vendor_components/popper/dist/popper.min.js' %}"></script>
+	
+	<!-- Bootstrap 4.0-->
+	<script src="{%  static 'assets/vendor_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+	
+	<!-- SlimScroll -->
+	<script src="{%  static 'assets/vendor_components/jquery-slimscroll/jquery.slimscroll.min.js' %}"></script>
+	
+	<!-- FastClick -->
+	<script src="{%  static 'assets/vendor_components/fastclick/lib/fastclick.js' %}"></script>
+
+    <!-- JS here -->
+    <script src="{% static  "js/vendor/modernizr-3.5.0.min.js" %}"></script>
+    <script src="{% static  "js/vendor/jquery-1.12.4.min.js" %}"></script>
+    <script src="{% static  "js/popper.min.js" %}"></script>
+    <script src="{% static  "js/bootstrap.min.js" %}"></script>
+    <script src="{% static  "js/owl.carousel.min.js" %}"></script>
+    <script src="{% static  "js/isotope.pkgd.min.js" %}"></script>
+    <script src="{% static  "js/ajax-form.js" %}"></script>
+    <script src="{% static  "js/waypoints.min.js" %}"></script>
+    <script src="{% static  "js/jquery.counterup.min.js" %}"></script>
+    <script src="{% static  "js/imagesloaded.pkgd.min.js" %}"></script>
+    <script src="{% static  "js/scrollIt.js" %}"></script>
+    <script src="{% static  "js/jquery.scrollUp.min.js" %}"></script>
+    <script src="{% static  "js/wow.min.js" %}"></script>
+    <script src="{% static  "js/nice-select.min.js" %}"></script>
+    <script src="{% static  "js/jquery.slicknav.min.js" %}"></script>
+    <script src="{% static  "js/jquery.magnific-popup.min.js" %}"></script>
+    <script src="{% static  "js/plugins.js" %}"></script>
+    <script src="{% static  "js/gijgo.min.js" %}"></script>
+
+    <!--contact js-->
+    <script src="{% static  "js/contact.js" %}"></script>
+    <script src="{% static  "js/jquery.ajaxchimp.min.js" %}"></script>
+    <script src="{% static  "js/jquery.form.js" %}"></script>
+    <script src="{% static  "js/jquery.validate.min.js" %}"></script>
+    <script src="{% static  "js/mail-script.js" %}"></script>
+
+    <script src="{% static  "js/main.js" %}"></script>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            disableDaysOfWeek: [0, 0],
+        //     icons: {
+        //      rightIcon: '<span class="fa fa-caret-down"></span>'
+        //  }
+        });
+        $('#datepicker2').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+             rightIcon: '<span class="fa fa-caret-down"></span>'
+         }
+
+        });
+        var timepicker = $('#timepicker').timepicker({
+         format: 'HH.MM'
+     });
+    </script>
+</body>
+
+</html>
+  
+	
+    
+    
+    
+    
+
+

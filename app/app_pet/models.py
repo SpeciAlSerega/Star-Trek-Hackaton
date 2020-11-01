@@ -208,6 +208,8 @@ class PetModel(models.Model):
         (MIDDLE, 'средний'),
     ]
 
+    image = models.ImageField(upload_to="user_photo",blank = True,)
+
 
     card_pet = models.CharField(default="", max_length=15, unique=True, blank=False)                #карточка животного
     type_pet = models.CharField(default=DOG, choices=TYPE_CHOICES, max_length=1, blank=False)       #выбор типа животного

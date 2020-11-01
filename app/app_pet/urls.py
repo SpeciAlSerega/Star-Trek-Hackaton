@@ -21,6 +21,7 @@ urlpatterns = [
     path('news_calendar/', news_calendar, name='news_calendar'),
     path('help_answers/', help_answers, name='help_answers'),
     path('advice/',  advice, name='advice'),
+    path('lenta/',  lenta, name='lenta'),
     
 
 

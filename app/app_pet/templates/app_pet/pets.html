@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{% if pet.type_pet == 'd' %}
+    Собака
+{% else %}
+    Кошка
+{% endif %}
+{% if pet.nikname != 'без клички' %}
+     {{ pet.nikname }}
+{% endif %} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="row" margin-right = "25px">
+        <div class="col-sm-12">
+            <div class="only-mobile">
+                <div class="p-animal"  >
+                    {% if pet.type_pet == 'd' %}
+                     Собака
+                    {% else %}
+                     Кошка
+                    {% endif %}
+                </div>
+                <div class="p-art">
+                    <span class="label">Номер</span>
+                    <span class="text">{{ pet.card_pet }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-12 order-md-1">
+            {% if pet.image %}
+                <img src={{ pet.image }} alt="My image">
+            {% endif %}
+        </div>
+        <p>
+            Пол :{% if pet.sex == 'm' %}
+                        Мужской
+                {% else %}
+                        Женский
+                {% endif %}
+
+            Возраст, год: {{ pet.age }} г.
+<br>
+            Вес : {{ pet.weight }} кг.
+<br>
+            Кличка животного : {{ pet.nickname }}
+<br> <hr >
+            Порода: {{ pet.breed_of_dog }}
+<br>
+            Окрас: {{ pet.color }}
+<br>
+            Тип шерсти : {{ pet.fur }}
+<br>
+            Тип хвоста : {{ pet.tail }}
+<br>
+            Размер : {{ pet.size }}
+<br>
+            Особые приметы : {{ pet.special_signs }}
+<br>
+            Номер вольера : {{ pet.aviary_number }}
+<br>
+            Идентификационная метка : {{ pet.identification_mark }}
+<br>
+            Дата стерилизации : {{ pet.sterilization_date }}
+<br>
+            ФИО ветеринара : {{ pet.veterinarian }}
+<br>
+            Социализированно : {{ pet.socialized }}
+<br>
+           Заказ-наряд /акт поступления животного : {{ pet.act_work_order }}
+<br>
+            Заказ-наряд дата/ акт о поступлении животного, дата : {{ pet.data_work_order }}
+<br>
+            Акт отлова : {{ pet.capture_act }}
+<br>
+            Адрес отлова : {{ pet.catching_address }}
+<br>
+            Новые владельцы : {{ pet.owner }}
+<br>
+            Дата постапления в приют : {{ pet.date_admission }}
+<br>
+            Акт поступления:{{ pet.act_admission }}
+<br>
+           Дата убытия из приюта : {{ pet.date_leaving }}
+<br>
+            Причина убытия : {{ pet.reason_leaving }}
+<br>
+            Акт убытия : {{ pet.act_leaving }}
+<br>
+            Информация о приюте : {{ pet.shelter }}
+<br>
+            Сведения о вакцинации : {{ pet.typevaccine }}
+<br>
+            Дата обследования : {{ pet.date_inspection }}
+<br>
+            Анамнез : {{ pet.reason_leaving }}
+        </p>
+
+    </div>
+{% endblock %}
