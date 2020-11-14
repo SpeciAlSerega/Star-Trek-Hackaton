@@ -20,9 +20,9 @@ https://pet911.ru/
 # Установка
 
 ```
-pip istall django
 virtualenv venv --python=python3.8
-source venv/bin/activate    
+source venv/bin/activate  
+pip install django
 python3 manage.py makemigrations app_pet 
 python3 manage.py migrate   
 python manage.py runserver 0.0.0.0:8888  
